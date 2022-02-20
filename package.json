@@ -16,10 +16,15 @@
     "tdl-client-nodejs": "0.26.3"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "diveSync": "0.3.0",
+    "eslint": "^8.9.0",
+    "jest": "^27.5.1",
+    "mocha": "^5.2.0",
     "nyc": "14.1.1",
     "prettier": "^1.11.1",
-    "diveSync": "0.3.0",
-    "mocha": "^5.2.0"
+    "typescript": "^4.5.5"
   },
   "engines": {
     "node": ">=5.6.0",
@@ -36,3 +41,4 @@
   },
   "homepage": "https://github.com/julianghionoiu/tdl-warmup#readme"
 }
+
