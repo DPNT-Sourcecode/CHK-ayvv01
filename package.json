@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Warmup code to bootstrap the challenge",
   "scripts": {
-    "start": "node ./lib/send_command_to_server.js",
+    "compile": "tsc",
+    "start": "npm run compile && node ./lib/send_command_to_server.js",
     "test": "jest test/.*\\.test\\.ts",
     "coverage": "nyc --reporter=json-summary --reporter=text npm test",
     "lint": "eslint . --ext .ts"
@@ -43,3 +44,4 @@
   },
   "homepage": "https://github.com/julianghionoiu/tdl-warmup#readme"
 }
+

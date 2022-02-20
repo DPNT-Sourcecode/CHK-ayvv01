@@ -6,8 +6,7 @@ describe('SUM challenge: adding two numbers', () => {
 		const secondInput = 2;
 
 		it('should return 3', () => {
-			expect(sum(firstInput, secondInput)).to
-			Equal(3);
+			expect(sum(firstInput, secondInput)).toEqual(3);
 		});
 	});
 });
