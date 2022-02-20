@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./lib/send_command_to_server.js",
     "test": "node ./node_modules/mocha/bin/mocha test/**/*.js",
-    "coverage": "nyc --reporter=json-summary --reporter=text npm test"
+    "coverage": "nyc --reporter=json-summary --reporter=text npm test",
+    "lint": "eslint . --ext .ts",
   },
   "repository": {
     "type": "git",
