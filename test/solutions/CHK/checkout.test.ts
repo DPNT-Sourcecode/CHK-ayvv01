@@ -13,23 +13,16 @@ import checkout from "../../../src/solutions/CHK/checkout"
 
 describe("Given a customer buys a list of items without any offers", () => {
     describe.each([
-        {quantity: 1, product: "A", total: 50},
-        {quantity: 1, product: "B", total: 30},
-        {quantity: 2, product: "A", total: 100},
-    ])("When the customer buys $quantity of $product" ,({quantity, product, total}) => {
-        let input = "";
-        beforeEach(() => {
-            for(let i = 0; i < quantity; i++){
-                input = input + product;
-            }
-        })
-
-        afterEach(() => {
-            input = "";
-        })
-
+        {SKUs: "A", total: 50},
+        {SKUs: "B", total: 30},
+        {SKUs: "AA", total: 100},
+        {SKUs: "C", total: 20},
+        {SKUs: "CC", total: 40},
+        {SKUs: "CCC", total: 60},
+        {SKUs: "ABC", total: 100},
+    ])("When the customer buys $SKUs" ,({SKUs, total}) => {
         it(`should total to ${total}`, () => {
-            expect(checkout(input)).toEqual(total);
+            expect(checkout(SKUs)).toEqual(total);
         })
     });
 
@@ -39,3 +32,4 @@ describe("Given a customer buys a list of items without any offers", () => {
         })
     })
 })
+
