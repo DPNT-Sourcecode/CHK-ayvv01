@@ -1,0 +1,1 @@
+export = (_param: string) => undefined;
