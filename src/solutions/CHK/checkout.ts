@@ -7,7 +7,7 @@ interface PriceMapping {
 
 interface Offer {
   quantity: number;
-  amountToDeductFromPreviousOffer: number;
+  amountToDeduct: number;
 }
 
 export = (SKUs: string) => {
@@ -17,11 +17,11 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 3,
-          amountToDeductFromPreviousOffer: 20
+          amountToDeduct: 20
         },
         {
           quantity: 5,
-          amountToDeductFromPreviousOffer: 30
+          amountToDeduct: 50
         }
       ]
     },
@@ -30,7 +30,7 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 2,
-          amountToDeductFromPreviousOffer: 15
+          amountToDeduct: 15
         }
       ]
     },
@@ -45,7 +45,7 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 2,
-          amountToDeductFromPreviousOffer: 40
+          amountToDeduct: 40
         }
       ]
     }
@@ -62,19 +62,32 @@ export = (SKUs: string) => {
 
     basket[sku]++;
     total = total + priceMapping[sku].price;
+  }
 
-    if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
-      const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
-        offer => basket[sku] % offer.quantity === 0
-      );
+  for (const sku of Object.keys(basket)) {
+      if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
+          let hasOffersLeft = true;
+          while(hasOffersLeft) {
+              const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
+                  offer => basket[sku] / offer.quantity > 0
+              );
 
-      if (offersThatApply.length > 0)
-        total -= offersThatApply[offersThatApply.length - 1].amountToDeductFromPreviousOffer;
-    }
+              console.log(offersThatApply)
+
+              if (offersThatApply.length > 0) {
+                  const {amountToDeduct, quantity} = offersThatApply[offersThatApply.length - 1]
+                  total -= amountToDeduct;
+                  basket[sku] -= quantity
+              }
+              else hasOffersLeft = false;
+          }
+      }
+
   }
 
   return total;
 };
+
 
 
 
