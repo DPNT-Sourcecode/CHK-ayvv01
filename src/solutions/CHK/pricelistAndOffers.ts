@@ -19,6 +19,12 @@ interface GiveawayOffer {
   itemToGiveFree: keyof PriceMapping;
 }
 
+interface GroupOfferMapping {
+  groupMembers: string[];
+  quantity: number;
+  price: number;
+}
+
 export const priceMapping: PriceMapping = {
   A: {
     price: 50,
@@ -171,5 +177,12 @@ export const freeMapping: FreeMapping = {
     itemToGiveFree: "Q"
   }
 };
+
+export const groupOffers: GroupOfferMapping = {
+  groupMembers: ["S", "T", "X", "Y", "Z"],
+  quantity: 3,
+  price: 45
+};
+
 
 
