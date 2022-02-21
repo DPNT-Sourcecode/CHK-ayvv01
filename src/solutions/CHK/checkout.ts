@@ -59,15 +59,15 @@ export = (SKUs: string) => {
     basket[sku]++;
     total = total + priceMapping[sku].price;
 
-    if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
-      const offersThatApply = priceMapping[sku].offer.filter(
+    if (priceMapping[sku].offer !== undefined && priceMapping[sku].offer!.length > 0) {
+      const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
         offer => basket[sku] % offer.quantity === 0
-      )[-1];
-      if (basket[sku] % priceMapping[sku].offer!.quantity === 0)
-        total -= priceMapping[sku].offer!.amountToDeduct;
+      );
+      total -= offersThatApply[offersThatApply.length -1].amountToDeduct;
     }
   }
 
   return total;
 };
+
 
