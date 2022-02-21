@@ -66,28 +66,21 @@ const removeFree = (basket: Basket, subtotal: number): [Basket, number] => {
     for(const sku of Object.keys(basket)){
         if(freeMapping[sku]){
             const {quantity, itemToGiveFree} = freeMapping[sku];
-
-            const amountOfFreeToDeduct = Math.floor(basket[sku] / quantity);
-
-            if(amountOfFreeToDeduct > basket[sku]){
-                basket[sku] -= amountOfFreeToDeduct;
-                subtotal -= priceMapping[itemToGiveFree].price * amountOfFreeToDeduct;
-            } else {
-                subtotal -= priceMapping[itemToGiveFree].price * basket[itemToGiveFree];
-                basket[sku] = 0
+            if(basket[itemToGiveFree] && basket[itemToGiveFree] > 0) {
+                const amountOfFreeToDeduct = Math.floor(basket[sku] / quantity);
+                if(amountOfFreeToDeduct !== 0) {
+                    if (amountOfFreeToDeduct >= basket[sku]) {
+                        basket[sku] -= amountOfFreeToDeduct;
+                        subtotal -= priceMapping[itemToGiveFree].price * amountOfFreeToDeduct;
+                    } else {
+                        subtotal -= priceMapping[itemToGiveFree].price * basket[itemToGiveFree];
+                        basket[sku] = 0
+                    }
+                }
             }
         }
     }
     return [basket, subtotal];
-    // } else {
-    // if (
-    //   basket[offerToUse.itemToGiveFree] &&
-    //   basket[offerToUse.itemToGiveFree] > 0
-    // ) {
-    //   total -= priceMapping[offerToUse.itemToGiveFree].price;
-    //   basket[offerToUse.itemToGiveFree]--;
-    // }
-    // basket[sku] -= offerToUse.quantity;
 }
 
 const applyOffers = (basket: Record<string, number>, total: number) => {
@@ -130,4 +123,5 @@ export = (SKUs: string) => {
   }
     return applyOffers(...removeFree(basket, subtotal))
 };
+
 
