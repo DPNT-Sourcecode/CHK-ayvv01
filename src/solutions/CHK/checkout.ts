@@ -62,7 +62,6 @@ const freeMapping: FreeMapping = {
 };
 
 const removeFree = (basket: Basket, subtotal: number): [Basket, number] => {
-
     for(const sku of Object.keys(basket)){
         if(freeMapping[sku]){
             const {quantity, itemToGiveFree} = freeMapping[sku];
@@ -70,11 +69,11 @@ const removeFree = (basket: Basket, subtotal: number): [Basket, number] => {
                 const amountOfFreeToDeduct = Math.floor(basket[sku] / quantity);
                 if(amountOfFreeToDeduct !== 0) {
                     if (amountOfFreeToDeduct >= basket[sku]) {
-                        basket[sku] -= amountOfFreeToDeduct;
+                        basket[itemToGiveFree] -= amountOfFreeToDeduct;
                         subtotal -= priceMapping[itemToGiveFree].price * amountOfFreeToDeduct;
                     } else {
                         subtotal -= priceMapping[itemToGiveFree].price * basket[itemToGiveFree];
-                        basket[sku] = 0
+                        basket[itemToGiveFree] = 0
                     }
                 }
             }
@@ -123,5 +122,6 @@ export = (SKUs: string) => {
   }
     return applyOffers(...removeFree(basket, subtotal))
 };
+
 
 
