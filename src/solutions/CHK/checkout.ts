@@ -1,4 +1,5 @@
 export = (SKUs: string) => {
-    console.log(SKUs);
+    let total = 0;
+    SKUs.t
     return SKUs.length * 50;
 };
