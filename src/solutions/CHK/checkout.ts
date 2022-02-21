@@ -7,7 +7,8 @@ interface PriceMapping {
 
 interface Offer {
   quantity: number;
-  amountToDeduct: number;
+  amountToDeduct?: number;
+  itemToGiveFree?: keyof PriceMapping;
 }
 
 export = (SKUs: string) => {
@@ -42,12 +43,10 @@ export = (SKUs: string) => {
     },
     E: {
       price: 40,
-      offer: [
-        {
-          quantity: 3,
-          amountToDeduct: 40
-        }
-      ]
+      offer: {
+        quantity: 2,
+        itemToGiveFree: "D"
+      }
     }
   };
   const skuInput = SKUs.split("");
@@ -65,23 +64,24 @@ export = (SKUs: string) => {
   }
 
   for (const sku of Object.keys(basket)) {
-      if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
-          let hasOffersLeft = true;
-          while(hasOffersLeft) {
-              const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
-                  offer => Math.floor(basket[sku] / offer.quantity) > 0
-              );
+    if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
+      let hasOffersLeft = true;
+      while (hasOffersLeft) {
+        const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
+          offer => Math.floor(basket[sku] / offer.quantity) > 0
+        );
 
-              if (offersThatApply.length > 0) {
-                  const {amountToDeduct, quantity} = offersThatApply[offersThatApply.length - 1]
-                  total -= amountToDeduct;
-                  basket[sku] -= quantity
-              }
-              else hasOffersLeft = false;
-          }
+        if (offersThatApply.length > 0) {
+          const { amountToDeduct, quantity } = offersThatApply[
+            offersThatApply.length - 1
+          ];
+          total -= amountToDeduct;
+          basket[sku] -= quantity;
+        } else hasOffersLeft = false;
       }
-
+    }
   }
 
   return total;
 };
+
