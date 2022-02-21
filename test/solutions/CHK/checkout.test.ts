@@ -91,7 +91,7 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "HHHHHHHHHH", total: 80},
             {SKUs: "HHHHHH", total: 55},
             {SKUs: "KK", total: 120},
-            {SKUs: "KKKHHKK", total: 400},
+            {SKUs: "KKKHHKK", total: 330},
             {SKUs: "NNNM", total: 120},
             {SKUs: "PPPPP", total: 200},
             {SKUs: "PPPPPPPPPP", total: 400},
@@ -111,7 +111,17 @@ describe("Given a customer buys a list of items", () => {
         });
     })
     describe('When items eligible for the group discount offer are bought',  () => {
-
+        describe.each([
+            {SKUs: "STX", total: 45},
+            {SKUs: "SYZ", total: 45},
+            {SKUs: "XYZ", total: 45},
+            {SKUs: "STTXYZ", total: 90},
+            {SKUs: "SXXXYZ", total: 90},
+        ])("And they buy $SKUs", ({SKUs, total}) => {
+            it(`should total to ${total}`, () => {
+                expect(checkout(SKUs)).toEqual(total);
+            });
+        });
     });
 
   describe("When an invalid item is given", () => {
@@ -120,4 +130,5 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+
 
