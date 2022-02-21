@@ -5,20 +5,17 @@ export = (SKUs: string) => {
   };
 
   const skuInput = SKUs.split("");
+  console.log(skuInput)
   let total = 0;
 
   for (const sku of skuInput) {
-    if (!(sku in Object.keys(priceMapping))) return -1;
+      console.log(Object.keys(priceMapping))
+      console.log(sku)
+      console.log(sku in Object.keys(priceMapping))
+      if (!(sku in Object.keys(priceMapping))) return -1;
     total = total + priceMapping[sku]
-    switch (sku) {
-      case "A":
-        total = total + priceMapping.A;
-        break;
-      case "B":
-        total = total + priceMapping.B;
-        break;
-    }
   }
 
   return total;
 };
+
