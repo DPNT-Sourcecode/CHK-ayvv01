@@ -7,7 +7,7 @@ interface PriceMapping {
 
 interface Offer {
   quantity: number;
-  amountToDeduct: number;
+  amountToDeductFromPreviousOffer: number;
 }
 
 export = (SKUs: string) => {
@@ -17,7 +17,11 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 3,
-          amountToDeduct: 20
+          amountToDeductFromPreviousOffer: 20
+        },
+        {
+          quantity: 5,
+          amountToDeductFromPreviousOffer: 30
         }
       ]
     },
@@ -26,7 +30,7 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 2,
-          amountToDeduct: 15
+          amountToDeductFromPreviousOffer: 15
         }
       ]
     },
@@ -41,7 +45,7 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 2,
-          amountToDeduct: 40
+          amountToDeductFromPreviousOffer: 40
         }
       ]
     }
@@ -64,12 +68,14 @@ export = (SKUs: string) => {
         offer => basket[sku] % offer.quantity === 0
       );
 
-      if(offersThatApply.length > 0)  total -= offersThatApply[offersThatApply.length -1].amountToDeduct;
+      if (offersThatApply.length > 0)
+        total -= offersThatApply[offersThatApply.length - 1].amountToDeductFromPreviousOffer;
     }
   }
 
   return total;
 };
+
 
 
 
