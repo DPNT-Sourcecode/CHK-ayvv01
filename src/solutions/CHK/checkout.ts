@@ -1,17 +1,24 @@
 export = (SKUs: string) => {
-    const priceMapping = {
-        "A": 50,
-        "B": 30
-    }
+  const priceMapping: Record<string, number> = {
+    A: 50,
+    B: 30
+  };
 
-    return SKUs.split("").reduce((accumulator, sku) => {
-        switch(sku) {
-            case "A":
-                return accumulator + priceMapping.A;
-            case "B":
-                return accumulator + priceMapping.B;
-            default:
-                return -1;
-        }
-        }, 0)
+  const skuInput = SKUs.split("");
+  let total = 0;
+
+  for (const sku of skuInput) {
+    if (!(sku in Object.keys(priceMapping))) return -1;
+    total = total + priceMapping[sku]
+    switch (sku) {
+      case "A":
+        total = total + priceMapping.A;
+        break;
+      case "B":
+        total = total + priceMapping.B;
+        break;
+    }
+  }
+
+  return total;
 };
