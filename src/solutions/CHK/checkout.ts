@@ -83,21 +83,21 @@ export = (SKUs: string) => {
           offer => Math.floor(basket[sku] / offer.quantity) > 0
         );
 
-        console.log(offersThatApply.length);
+        console.log(offersThatApply.length)
         if (offersThatApply.length > 0) {
-          const offerToUse = offersThatApply.pop();
+          const offerToUse = offersThatApply[offersThatApply.length - 1];
 
-          if (isMultiBuyOffer(offerToUse!)) {
+          if (isMultiBuyOffer(offerToUse)) {
             total -= offerToUse.amountToDeduct;
             basket[sku] -= offerToUse.quantity;
           } else {
             if (
-              basket[offerToUse!.itemToGiveFree] &&
-              basket[offerToUse!.itemToGiveFree] > 0
+              basket[offerToUse.itemToGiveFree] &&
+              basket[offerToUse.itemToGiveFree] > 0
             ) {
-              total -= priceMapping[offerToUse!.itemToGiveFree].price;
-              basket[offerToUse!.itemToGiveFree]--;
-              basket[sku] -= offerToUse!.quantity;
+              total -= priceMapping[offerToUse.itemToGiveFree].price;
+              basket[offerToUse.itemToGiveFree]--;
+              basket[sku] -= offerToUse.quantity;
             }
           }
         } else hasOffersLeft = false;
@@ -107,6 +107,7 @@ export = (SKUs: string) => {
 
   return total;
 };
+
 
 
 
