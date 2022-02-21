@@ -1,4 +1,4 @@
-import * as sum from "../../../src/solutions/SUM/sum";
+import sum from "../../../src/solutions/SUM/sum";
 
 describe("SUM challenge: adding two numbers", () => {
   describe.each([
@@ -14,3 +14,4 @@ describe("SUM challenge: adding two numbers", () => {
     }
   );
 });
+
