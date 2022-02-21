@@ -1,3 +1,1 @@
-export function (x: number, y: number): number {
- return   x + y
-};
+export default (x: number, y: number): number => x + y;

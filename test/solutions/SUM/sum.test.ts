@@ -1,4 +1,4 @@
-import { sum } from "../../../src/solutions/SUM/sum";
+import * as sum from "../../../src/solutions/SUM/sum";
 
 describe("SUM challenge: adding two numbers", () => {
   describe.each([
