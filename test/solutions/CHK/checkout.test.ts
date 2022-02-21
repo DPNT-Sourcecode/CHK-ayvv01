@@ -12,7 +12,7 @@ import checkout from "../../../src/solutions/CHK/checkout";
  */
 
 describe("Given a customer buys a list of items", () => {
-    describe("And they are not eligible for any special offers", () => {
+    describe("When they are not eligible for any special offers", () => {
         describe.each([
             {SKUs: "A", total: 50},
             {SKUs: "B", total: 30},
@@ -29,12 +29,22 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "AD", total: 65},
             {SKUs: "DB", total: 45},
             {SKUs: "BAACCD", total: 185}
-        ])("When the customer buys $SKUs", ({SKUs, total}) => {
+        ])("And the customer buys $SKUs", ({SKUs, total}) => {
             it(`should total to ${total}`, () => {
                 expect(checkout(SKUs)).toEqual(total);
             });
         });
     });
+
+    describe("When they are eligible for special offers", () => {
+        describe.each([
+            {SKUs: "AAA", total: 130},
+        ])("And they buy $SKUs", ({SKUs, total}) => {
+            it(`should total to ${total}`, () => {
+                expect(checkout(SKUs)).toEqual(total);
+            });
+        });
+    })
 
   describe("When an invalid item is given", () => {
     it("should return -1", () => {
@@ -42,3 +52,4 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+
