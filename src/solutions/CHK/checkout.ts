@@ -50,7 +50,6 @@ const applyIndividualOffers = (basket: Record<string, number>, total: number) =>
 };
 
 const applyGroupOffers = (basket: Basket, subtotal: number, itemsForGroupOffer: string[]): [Basket, number] => {
-  if(!itemsForGroupOffer) return [basket, subtotal];
   itemsForGroupOffer.sort((a, b) => {
     if(priceMapping[a] > priceMapping[b]) return 1;
     if(priceMapping[b] > priceMapping[a]) return -1;
@@ -64,7 +63,7 @@ const applyGroupOffers = (basket: Basket, subtotal: number, itemsForGroupOffer: 
     subtotal += 45;
   }
 
-  while(itemsForGroupOffer){
+  while(itemsForGroupOffer.length){
     const item = itemsForGroupOffer.pop()!;
     subtotal += priceMapping[item].price;
   }
@@ -82,7 +81,7 @@ export = (SKUs: string) => {
 
   for (const sku of skuInput) {
     if (!(sku in priceMapping)) return -1;
-    if(sku in groupOffer.groupMembers) {
+    if(groupOffer.groupMembers.includes(sku)) {
       itemsForGroupOffer.push(sku);
       continue;
     }
@@ -93,6 +92,7 @@ export = (SKUs: string) => {
   }
   return applyIndividualOffers(...removeFree(...applyGroupOffers(basket, subtotal, itemsForGroupOffer)));
 };
+
 
 
 
