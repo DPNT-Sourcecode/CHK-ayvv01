@@ -17,8 +17,9 @@ interface GiveawayOffer {
 
 type Offer = MultiBuyOffer | GiveawayOffer;
 
-const isMultiBuyOffer: (offer: Offer) => offer is MultiBuyOffer = offer =>
-  (offer as MultiBuyOffer).amountToDeduct !== undefined;
+function isMultiBuyOffer(offer: Offer): offer is MultiBuyOffer {
+  return (offer as MultiBuyOffer).amountToDeduct !== undefined;
+}
 
 export = (SKUs: string) => {
   const priceMapping: PriceMapping = {
@@ -55,7 +56,7 @@ export = (SKUs: string) => {
       offer: [
         {
           quantity: 2,
-          itemToGiveFree: "D"
+          itemToGiveFree: "B"
         }
       ]
     }
@@ -82,21 +83,22 @@ export = (SKUs: string) => {
           offer => Math.floor(basket[sku] / offer.quantity) > 0
         );
 
+        console.log(offersThatApply.length)
         if (offersThatApply.length > 0) {
+          const offerToUse = offersThatApply[offersThatApply.length - 1];
 
-          const offerToUse = offersThatApply[
-            offersThatApply.length - 1
-          ];
-
-          if(isMultiBuyOffer(offerToUse)){
+          if (isMultiBuyOffer(offerToUse)) {
             total -= offerToUse.amountToDeduct;
             basket[sku] -= offerToUse.quantity;
           } else {
-              if(basket[offerToUse.itemToGiveFree] && basket[offerToUse.itemToGiveFree] > 0){
-                  total -= priceMapping[offerToUse.itemToGiveFree].price;
-                  basket[offerToUse.itemToGiveFree]--;
-                  basket[sku] -= offerToUse.quantity;
-              }
+            if (
+              basket[offerToUse.itemToGiveFree] &&
+              basket[offerToUse.itemToGiveFree] > 0
+            ) {
+              total -= priceMapping[offerToUse.itemToGiveFree].price;
+              basket[offerToUse.itemToGiveFree]--;
+              basket[sku] -= offerToUse.quantity;
+            }
           }
         } else hasOffersLeft = false;
       }
@@ -105,5 +107,6 @@ export = (SKUs: string) => {
 
   return total;
 };
+
 
 
