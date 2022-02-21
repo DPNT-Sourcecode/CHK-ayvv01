@@ -19,6 +19,8 @@ interface GiveawayOffer {
   itemToGiveFree: keyof PriceMapping;
 }
 
+type Basket = Record<string, number>
+
 const priceMapping: PriceMapping = {
     A: {
         price: 50,
@@ -59,43 +61,73 @@ const freeMapping: FreeMapping = {
     }
 };
 
-const removeFree = (SKUs: string[]): string[] => {
+const removeFree = (basket: Basket, subtotal: number): [Basket, number] => {
 
+    for(const sku of Object.keys(basket)){
+        if(freeMapping[sku]){
+            const {quantity, itemToGiveFree} = freeMapping[sku];
+
+            const amountOfFreeToDeduct = Math.floor(basket[sku] / quantity);
+
+            if(amountOfFreeToDeduct > basket[sku]){
+                basket[sku] -= amountOfFreeToDeduct;
+                subtotal -= priceMapping[itemToGiveFree].price * amountOfFreeToDeduct;
+            } else {
+                subtotal -= priceMapping[itemToGiveFree].price * basket[itemToGiveFree];
+                basket[sku] = 0
+            }
+        }
+    }
+    return [basket, subtotal];
+    // } else {
+    // if (
+    //   basket[offerToUse.itemToGiveFree] &&
+    //   basket[offerToUse.itemToGiveFree] > 0
+    // ) {
+    //   total -= priceMapping[offerToUse.itemToGiveFree].price;
+    //   basket[offerToUse.itemToGiveFree]--;
+    // }
+    // basket[sku] -= offerToUse.quantity;
+}
+
+const applyOffers = (basket: Record<string, number>, total: number) => {
+    for (const sku of Object.keys(basket)) {
+        if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
+            let hasOffersLeft = true;
+            while (hasOffersLeft) {
+                const offersThatApply: MultiBuyOffer[] = priceMapping[sku].offer!.filter(
+                    offer => Math.floor(basket[sku] / offer.quantity) > 0
+                );
+
+                if (offersThatApply.length > 0) {
+                    const offerToUse = offersThatApply[offersThatApply.length - 1];
+
+                    if (offerToUse) {
+                        total -= offerToUse.amountToDeduct;
+                        basket[sku] -= offerToUse.quantity;
+                    }
+                } else hasOffersLeft = false;
+            }
+        }
+    }
+
+    return total;
 }
 
 export = (SKUs: string) => {
-  const skuInput = removeFree(SKUs.split(""));
+  const skuInput = SKUs.split("");
 
-  const basket: Record<string, number> = {};
+  const basket: Basket = {};
 
-  let total = 0;
+  let subtotal = 0;
 
   for (const sku of skuInput) {
     if (!(sku in priceMapping)) return -1;
     if (!(sku in basket)) basket[sku] = 0;
 
     basket[sku]++;
-    total = total + priceMapping[sku].price;
+    subtotal = subtotal + priceMapping[sku].price;
   }
-
-  for (const sku of Object.keys(basket)) {
-    if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
-      let hasOffersLeft = true;
-      while (hasOffersLeft) {
-        const offersThatApply: MultiBuyOffer[] = priceMapping[sku].offer!.filter(
-          offer => Math.floor(basket[sku] / offer.quantity) > 0
-        );
-
-        if (offersThatApply.length > 0) {
-          const offerToUse = offersThatApply[offersThatApply.length - 1];
-
-          if (offerToUse) {
-            total -= offerToUse.amountToDeduct;
-            basket[sku] -= offerToUse.quantity;
-        } else hasOffersLeft = false;
-      }
-    }
-  }
-
-  return total;
+    return applyOffers(...removeFree(basket, subtotal))
 };
+
