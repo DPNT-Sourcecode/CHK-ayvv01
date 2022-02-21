@@ -171,5 +171,3 @@ export const freeMapping: FreeMapping = {
     itemToGiveFree: "Q"
   }
 };
-
-

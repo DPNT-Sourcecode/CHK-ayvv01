@@ -65,5 +65,3 @@ export = (SKUs: string) => {
   }
   return applyOffers(...removeFree(basket, subtotal));
 };
-
-

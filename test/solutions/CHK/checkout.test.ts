@@ -51,7 +51,7 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "PP", total: 100},
             {SKUs: "QQ", total: 60},
             {SKUs: "RR", total: 100},
-            {SKUs: "SSSS", total: 120},
+            {SKUs: "SS", total: 40},
             {SKUs: "T", total: 20},
             {SKUs: "UUU", total: 120},
             {SKUs: "V", total: 50},
@@ -110,6 +110,9 @@ describe("Given a customer buys a list of items", () => {
             });
         });
     })
+    describe('When items eligible for the group discount offer are bought',  () => {
+
+    });
 
   describe("When an invalid item is given", () => {
     it("should return -1", () => {
@@ -117,7 +120,3 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
-
-
-
-
