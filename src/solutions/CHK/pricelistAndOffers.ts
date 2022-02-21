@@ -178,11 +178,12 @@ export const freeMapping: FreeMapping = {
   }
 };
 
-export const groupOffers: GroupOfferMapping = {
+export const groupOffer: GroupOfferMapping = {
   groupMembers: ["S", "T", "X", "Y", "Z"],
   quantity: 3,
   price: 45
 };
+
 
 
 
