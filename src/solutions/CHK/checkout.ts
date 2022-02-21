@@ -44,7 +44,7 @@ export = (SKUs: string) => {
       price: 40,
       offer: [
         {
-          quantity: 2,
+          quantity: 3,
           amountToDeduct: 40
         }
       ]
@@ -87,6 +87,7 @@ export = (SKUs: string) => {
 
   return total;
 };
+
 
 
 
