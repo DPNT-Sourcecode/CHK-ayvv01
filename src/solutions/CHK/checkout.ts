@@ -52,6 +52,9 @@ const priceMapping: PriceMapping = {
     },
     E: {
         price: 40
+    },
+    F: {
+        price: 10
     }
 };
 const freeMapping: FreeMapping = {
@@ -122,7 +125,3 @@ export = (SKUs: string) => {
   }
     return applyOffers(...removeFree(basket, subtotal))
 };
-
-
-
-
