@@ -1,1 +1,1 @@
-export = (_param: string) => undefined;
+export = (_param: string) => "Hello World";
