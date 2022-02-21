@@ -17,4 +17,10 @@ describe("Given a customer buys a list of items", () => {
             expect(checkout("A")).toEqual(50)
         })
     })
+
+    describe("When the customer buys 2 of A" ,() => {
+        it("should total to £100", () => {
+            expect(checkout("AA")).toEqual(100);
+        })
+    })
 })
