@@ -3,7 +3,7 @@ interface PriceMapping {
         price: number,
         offer?: {
             quantity: number,
-            specialPrice: number
+            amountToDeduct: number
         }
     }
 }
@@ -11,12 +11,21 @@ interface PriceMapping {
 export = (SKUs: string) => {
   const priceMapping: PriceMapping = {
     A: {
-        price: 50
+        price: 50,
+        offer: {
+            quantity: 3,
+            amountToDeduct: 20
+        }
     },
     B: {
-        price:30},
-    C: {price:20},
-    D: {price: 15}
+        price: 30
+    },
+    C: {
+        price: 20
+    },
+    D: {
+        price: 15
+    }
   };
   const skuInput = SKUs.split("");
 
@@ -32,10 +41,13 @@ export = (SKUs: string) => {
     basket[sku]++;
     total = total + priceMapping[sku].price;
 
-    if(basket?.A % 3 === 0) total -= 20;
+    if(priceMapping[sku] && priceMapping[sku].offer){
+        if(basket[sku] % priceMapping[sku].offer.quantity === 0) total -= priceMapping[sku].offer.amountToDeduct
+    }
   }
 
   return total;
 };
+
 
 
