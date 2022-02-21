@@ -31,5 +31,11 @@ describe("Given a customer buys a list of items without any offers", () => {
         it(`should total to ${total}`, () => {
             expect(checkout(input)).toEqual(total);
         })
+    });
+
+    describe("When an invalid item is given", () => {
+        it("should return -1", () => {
+            expect(checkout("AA3BBB")).toEqual(-1);
+        })
     })
 })

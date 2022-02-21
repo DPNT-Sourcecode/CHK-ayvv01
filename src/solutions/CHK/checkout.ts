@@ -3,14 +3,15 @@ export = (SKUs: string) => {
         "A": 50,
         "B": 30
     }
-    const inputSKUs = SKUs.split("");
 
-    let total = 0;
-
-    for(const sku of inputSKUs){
-        if(sku === "A") total += priceMapping.A;
-        if(sku === "B") total += priceMapping.B;
-    }
-
-    return total;
+    return SKUs.split("").reduce((accumulator, sku) => {
+        switch(sku) {
+            case "A":
+                return accumulator + priceMapping.A;
+            case "B":
+                return accumulator + priceMapping.B;
+            default:
+                return -1;
+        }
+        }, 0)
 };
