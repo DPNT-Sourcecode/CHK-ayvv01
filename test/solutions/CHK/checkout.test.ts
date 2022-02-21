@@ -31,6 +31,8 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "DB", total: 45},
             {SKUs: "BAACCD", total: 185},
             {SKUs: "E", total: 40},
+            {SKUs: "EE", total: 80},
+            {SKUs: "EEE", total: 120},
             {SKUs: "DBE", total: 85},
         ])("And the customer buys $SKUs", ({SKUs, total}) => {
             it(`should total to ${total}`, () => {
@@ -43,9 +45,8 @@ describe("Given a customer buys a list of items", () => {
         describe.each([
             {SKUs: "AAA", total: 130},
             {SKUs: "BB", total: 45},
-            {SKUs: "EE", total: 80},
-            {SKUs: "EEE", total: 80},
-            {SKUs: "EEEE", total: 120},
+            {SKUs: "EED", total: 80},
+            {SKUs: "EEEEDD", total: 160},
             {SKUs: "ABAA", total: 160},
             {SKUs: "AAABB", total: 175},
             {SKUs: "AAAA", total: 180},
@@ -69,3 +70,4 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+

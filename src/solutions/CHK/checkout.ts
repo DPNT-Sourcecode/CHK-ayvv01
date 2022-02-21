@@ -5,11 +5,20 @@ interface PriceMapping {
   };
 }
 
-interface Offer {
+interface MultiBuyOffer {
   quantity: number;
-  amountToDeduct?: number;
-  itemToGiveFree?: keyof PriceMapping;
+  amountToDeduct: number;
 }
+
+interface GiveawayOffer {
+  quantity: number;
+  itemToGiveFree: keyof PriceMapping;
+}
+
+type Offer = MultiBuyOffer | GiveawayOffer;
+
+const isMultiBuyOffer: (offer: Offer) => offer is MultiBuyOffer = offer =>
+  (offer as MultiBuyOffer).amountToDeduct !== undefined;
 
 export = (SKUs: string) => {
   const priceMapping: PriceMapping = {
@@ -43,10 +52,12 @@ export = (SKUs: string) => {
     },
     E: {
       price: 40,
-      offer: {
-        quantity: 2,
-        itemToGiveFree: "D"
-      }
+      offer: [
+        {
+          quantity: 2,
+          itemToGiveFree: "D"
+        }
+      ]
     }
   };
   const skuInput = SKUs.split("");
@@ -72,11 +83,21 @@ export = (SKUs: string) => {
         );
 
         if (offersThatApply.length > 0) {
-          const { amountToDeduct, quantity } = offersThatApply[
+
+          const offerToUse = offersThatApply[
             offersThatApply.length - 1
           ];
-          total -= amountToDeduct;
-          basket[sku] -= quantity;
+
+          if(isMultiBuyOffer(offerToUse)){
+            total -= offerToUse.amountToDeduct;
+            basket[sku] -= offerToUse.quantity;
+          } else {
+              if(basket[offerToUse.itemToGiveFree] && basket[offerToUse.itemToGiveFree] > 0){
+                  total -= priceMapping[offerToUse.itemToGiveFree].price;
+                  basket[offerToUse.itemToGiveFree]--;
+                  basket[sku] -= offerToUse.quantity;
+              }
+          }
         } else hasOffersLeft = false;
       }
     }
@@ -84,4 +105,5 @@ export = (SKUs: string) => {
 
   return total;
 };
+
 
