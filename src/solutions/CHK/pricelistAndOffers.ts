@@ -183,7 +183,3 @@ export const groupOffer: GroupOfferMapping = {
   quantity: 3,
   price: 45
 };
-
-
-
-

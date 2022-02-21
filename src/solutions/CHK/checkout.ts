@@ -51,8 +51,8 @@ const applyIndividualOffers = (basket: Record<string, number>, total: number) =>
 
 const applyGroupOffers = (basket: Basket, subtotal: number, itemsForGroupOffer: string[]): [Basket, number] => {
   itemsForGroupOffer.sort((a, b) => {
-    if(priceMapping[a] > priceMapping[b]) return 1;
-    if(priceMapping[b] > priceMapping[a]) return -1;
+    if(priceMapping[a] > priceMapping[b]) return -1;
+    if(priceMapping[b] > priceMapping[a]) return 1;
     return 0
   })
   while(itemsForGroupOffer.length >= 3){
@@ -91,8 +91,3 @@ export = (SKUs: string) => {
   }
   return applyIndividualOffers(...removeFree(...applyGroupOffers(basket, subtotal, itemsForGroupOffer)));
 };
-
-
-
-
-
