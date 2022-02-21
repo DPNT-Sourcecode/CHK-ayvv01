@@ -69,7 +69,7 @@ export = (SKUs: string) => {
           let hasOffersLeft = true;
           while(hasOffersLeft) {
               const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
-                  offer => basket[sku] / offer.quantity > 0
+                  offer => Math.floor(basket[sku] / offer.quantity) > 0
               );
 
               console.log(offersThatApply)
@@ -87,6 +87,7 @@ export = (SKUs: string) => {
 
   return total;
 };
+
 
 
 

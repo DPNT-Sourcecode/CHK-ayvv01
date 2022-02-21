@@ -53,6 +53,7 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "AAAAA", total: 200},
             {SKUs: "AAAAAA", total: 250},
             {SKUs: "AAAAAAAAAAAAAAA", total: 600},
+            {SKUs: "AAAAAAAA", total: 330},
             {SKUs: "AAAABBBBBCCDD", total: 370},
             {SKUs: "AAAAABBBBBCCDDEEEE", total: 470},
         ])("And they buy $SKUs", ({SKUs, total}) => {
@@ -68,4 +69,5 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+
 
