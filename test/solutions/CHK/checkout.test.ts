@@ -11,19 +11,13 @@ import checkout from "../../../src/solutions/CHK/checkout"
 +------+-------+----------------+
  */
 
-describe("Given a customer buys a list of items", () => {
-    describe("When the customer buys 1 of A", () => {
-        it("should total to £50", () => {
-            expect(checkout("A")).toEqual(50)
-        })
-    })
-
+describe("Given a customer buys a list of items without any offers", () => {
     describe.each([
+        {quantity: 1, product: "A", total: 50},
+        {quantity: 1, product: "B", total: 30},
         {quantity: 2, product: "A", total: 100},
-        {quantity: 4, product: "A", total: 200},
-        {quantity: 8, product: "A", total: 400},
     ])("When the customer buys $quantity of $product" ,({quantity, product, total}) => {
-        let input: string;
+        let input = "";
         beforeEach(() => {
             for(let i = 0; i < quantity; i++){
                 input = input + product;
