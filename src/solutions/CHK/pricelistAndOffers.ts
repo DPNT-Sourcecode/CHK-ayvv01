@@ -83,7 +83,7 @@ export const priceMapping: PriceMapping = {
     price: 60
   },
   K: {
-    price: 80,
+    price: 70,
     offer: [
       {
         quantity: 2,
@@ -125,7 +125,7 @@ export const priceMapping: PriceMapping = {
     price: 50
   },
   S: {
-    price: 30
+    price: 20
   },
   T: {
     price: 20
@@ -153,9 +153,9 @@ export const priceMapping: PriceMapping = {
     ]
   },
   W: { price: 20 },
-  X: { price: 90 },
-  Y: { price: 10 },
-  Z: { price: 50 }
+  X: { price: 17 },
+  Y: { price: 20 },
+  Z: { price: 21 }
 };
 export const freeMapping: FreeMapping = {
   E: {
@@ -171,3 +171,4 @@ export const freeMapping: FreeMapping = {
     itemToGiveFree: "Q"
   }
 };
+
