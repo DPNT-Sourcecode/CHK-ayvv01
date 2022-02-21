@@ -1,74 +1,6 @@
-interface PriceMapping {
-  [key: string]: {
-    price: number;
-    offer?: MultiBuyOffer[];
-  };
-}
-
-interface MultiBuyOffer {
-  quantity: number;
-  amountToDeduct: number;
-}
-
-interface FreeMapping {
-  [key: string]: GiveawayOffer;
-}
-
-interface GiveawayOffer {
-  quantity: number;
-  itemToGiveFree: keyof PriceMapping;
-}
+import {freeMapping, MultiBuyOffer, priceMapping} from "./pricelistAndOffers";
 
 type Basket = Record<string, number>;
-
-const priceMapping: PriceMapping = {
-  A: {
-    price: 50,
-    offer: [
-      {
-        quantity: 3,
-        amountToDeduct: 20
-      },
-      {
-        quantity: 5,
-        amountToDeduct: 50
-      }
-    ]
-  },
-  B: {
-    price: 30,
-    offer: [
-      {
-        quantity: 2,
-        amountToDeduct: 15
-      }
-    ]
-  },
-  C: {
-    price: 20
-  },
-  D: {
-    price: 15
-  },
-  E: {
-    price: 40
-  },
-  F: {
-    price: 10,
-    offer: [
-      {
-        quantity: 3,
-        amountToDeduct: 10
-      }
-    ]
-  }
-};
-const freeMapping: FreeMapping = {
-  E: {
-    quantity: 2,
-    itemToGiveFree: "B"
-  }
-};
 
 const removeFree = (basket: Basket, subtotal: number): [Basket, number] => {
   for (const sku of Object.keys(basket)) {
@@ -133,4 +65,5 @@ export = (SKUs: string) => {
   }
   return applyOffers(...removeFree(basket, subtotal));
 };
+
 
