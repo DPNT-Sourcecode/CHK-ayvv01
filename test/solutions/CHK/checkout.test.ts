@@ -70,5 +70,3 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
-
-

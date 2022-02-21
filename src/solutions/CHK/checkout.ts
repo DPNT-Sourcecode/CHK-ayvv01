@@ -1,7 +1,7 @@
 interface PriceMapping {
   [key: string]: {
     price: number;
-    offer?: Offer[];
+    offer?: MultiBuyOffer[];
   };
 }
 
@@ -10,58 +10,61 @@ interface MultiBuyOffer {
   amountToDeduct: number;
 }
 
+interface FreeMapping {
+  [key: string]: GiveawayOffer;
+}
+
 interface GiveawayOffer {
   quantity: number;
   itemToGiveFree: keyof PriceMapping;
 }
 
-type Offer = MultiBuyOffer | GiveawayOffer;
+const priceMapping: PriceMapping = {
+    A: {
+        price: 50,
+        offer: [
+            {
+                quantity: 3,
+                amountToDeduct: 20
+            },
+            {
+                quantity: 5,
+                amountToDeduct: 50
+            }
+        ]
+    },
+    B: {
+        price: 30,
+        offer: [
+            {
+                quantity: 2,
+                amountToDeduct: 15
+            }
+        ]
+    },
+    C: {
+        price: 20
+    },
+    D: {
+        price: 15
+    },
+    E: {
+        price: 40
+    }
+};
+const freeMapping: FreeMapping = {
+    E: {
+        quantity: 2,
+        itemToGiveFree: "B"
+    }
+};
 
-function isMultiBuyOffer(offer: Offer): offer is MultiBuyOffer {
-  return (offer as MultiBuyOffer).amountToDeduct !== undefined;
+const removeFree = (SKUs: string[]): string[] => {
+
 }
 
 export = (SKUs: string) => {
-  const priceMapping: PriceMapping = {
-    A: {
-      price: 50,
-      offer: [
-        {
-          quantity: 3,
-          amountToDeduct: 20
-        },
-        {
-          quantity: 5,
-          amountToDeduct: 50
-        }
-      ]
-    },
-    B: {
-      price: 30,
-      offer: [
-        {
-          quantity: 2,
-          amountToDeduct: 15
-        }
-      ]
-    },
-    C: {
-      price: 20
-    },
-    D: {
-      price: 15
-    },
-    E: {
-      price: 40,
-      offer: [
-        {
-          quantity: 2,
-          itemToGiveFree: "B"
-        }
-      ]
-    }
-  };
-  const skuInput = SKUs.split("");
+  const skuInput = removeFree(SKUs.split(""));
 
   const basket: Record<string, number> = {};
 
@@ -79,27 +82,16 @@ export = (SKUs: string) => {
     if (priceMapping[sku].offer && priceMapping[sku].offer!.length > 0) {
       let hasOffersLeft = true;
       while (hasOffersLeft) {
-        const offersThatApply: Offer[] = priceMapping[sku].offer!.filter(
+        const offersThatApply: MultiBuyOffer[] = priceMapping[sku].offer!.filter(
           offer => Math.floor(basket[sku] / offer.quantity) > 0
         );
 
-        console.log(offersThatApply.length);
         if (offersThatApply.length > 0) {
           const offerToUse = offersThatApply[offersThatApply.length - 1];
 
-          if (isMultiBuyOffer(offerToUse)) {
+          if (offerToUse) {
             total -= offerToUse.amountToDeduct;
             basket[sku] -= offerToUse.quantity;
-          } else {
-            if (
-              basket[offerToUse.itemToGiveFree] &&
-              basket[offerToUse.itemToGiveFree] > 0
-            ) {
-              total -= priceMapping[offerToUse.itemToGiveFree].price;
-              basket[offerToUse.itemToGiveFree]--;
-            }
-            basket[sku] -= offerToUse.quantity;
-          }
         } else hasOffersLeft = false;
       }
     }
@@ -107,9 +99,3 @@ export = (SKUs: string) => {
 
   return total;
 };
-
-
-
-
-
-
