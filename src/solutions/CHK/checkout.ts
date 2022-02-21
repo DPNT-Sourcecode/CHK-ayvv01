@@ -1,4 +1,4 @@
 export = (SKUs: string) => {
-    if(SKUs.length === 2) return 100;
-    return 50;
+    console.log(SKUs);
+    return SKUs.length * 50;
 };
