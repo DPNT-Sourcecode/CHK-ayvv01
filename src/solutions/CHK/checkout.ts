@@ -58,7 +58,6 @@ const applyGroupOffers = (basket: Basket, subtotal: number, itemsForGroupOffer: 
   while(itemsForGroupOffer.length >= 3){
     for(let i = 0; i < 3; i++) {
       const item = itemsForGroupOffer.pop()!;
-      subtotal -= priceMapping[item].price;
     }
     subtotal += 45;
   }
@@ -92,6 +91,7 @@ export = (SKUs: string) => {
   }
   return applyIndividualOffers(...removeFree(...applyGroupOffers(basket, subtotal, itemsForGroupOffer)));
 };
+
 
 
 
