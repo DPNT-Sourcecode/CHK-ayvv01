@@ -1,14 +1,15 @@
 import checkout from "../../../src/solutions/CHK/checkout";
 
 /*
-+------+-------+----------------+
-| Item | Price | Special offers |
-+------+-------+----------------+
-| A    | 50    | 3A for 130     |
-| B    | 30    | 2B for 45      |
-| C    | 20    |                |
-| D    | 15    |                |
-+------+-------+----------------+
++------+-------+------------------------+
+| Item | Price | Special offers         |
++------+-------+------------------------+
+| A    | 50    | 3A for 130, 5A for 200 |
+| B    | 30    | 2B for 45              |
+| C    | 20    |                        |
+| D    | 15    |                        |
+| E    | 40    | 2E get one B free      |
++------+-------+------------------------+
  */
 
 describe("Given a customer buys a list of items", () => {
@@ -28,7 +29,9 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "CAB", total: 100},
             {SKUs: "AD", total: 65},
             {SKUs: "DB", total: 45},
-            {SKUs: "BAACCD", total: 185}
+            {SKUs: "BAACCD", total: 185},
+            {SKUs: "E", total: 40},
+            {SKUs: "DBE", total: 85},
         ])("And the customer buys $SKUs", ({SKUs, total}) => {
             it(`should total to ${total}`, () => {
                 expect(checkout(SKUs)).toEqual(total);
@@ -60,6 +63,7 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+
 
 
 
