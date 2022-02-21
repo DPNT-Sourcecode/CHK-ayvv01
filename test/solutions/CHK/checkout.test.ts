@@ -1,4 +1,4 @@
-import checkout from "../../../src/solutions/CHK/checkout"
+import checkout from "../../../src/solutions/CHK/checkout";
 
 /*
 +------+-------+----------------+
@@ -11,25 +11,34 @@ import checkout from "../../../src/solutions/CHK/checkout"
 +------+-------+----------------+
  */
 
-describe("Given a customer buys a list of items without any offers", () => {
-    describe.each([
-        {SKUs: "A", total: 50},
-        {SKUs: "B", total: 30},
-        {SKUs: "AA", total: 100},
-        {SKUs: "C", total: 20},
-        {SKUs: "CC", total: 40},
-        {SKUs: "CCC", total: 60},
-        {SKUs: "ABC", total: 100},
-    ])("When the customer buys $SKUs" ,({SKUs, total}) => {
-        it(`should total to ${total}`, () => {
-            expect(checkout(SKUs)).toEqual(total);
-        })
+describe("Given a customer buys a list of items", () => {
+    describe("And they are not eligible for any special offers", () => {
+        describe.each([
+            {SKUs: "A", total: 50},
+            {SKUs: "B", total: 30},
+            {SKUs: "AA", total: 100},
+            {SKUs: "C", total: 20},
+            {SKUs: "CC", total: 40},
+            {SKUs: "CCC", total: 60},
+            {SKUs: "ABC", total: 100},
+            {SKUs: "D", total: 15},
+            {SKUs: "DD", total: 30},
+            {SKUs: "DDD", total: 45},
+            {SKUs: "ABC", total: 100},
+            {SKUs: "CAB", total: 100},
+            {SKUs: "AD", total: 65},
+            {SKUs: "DB", total: 45},
+            {SKUs: "BAACCD", total: 185}
+        ])("When the customer buys $SKUs", ({SKUs, total}) => {
+            it(`should total to ${total}`, () => {
+                expect(checkout(SKUs)).toEqual(total);
+            });
+        });
     });
 
-    describe("When an invalid item is given", () => {
-        it("should return -1", () => {
-            expect(checkout("AA3BBB")).toEqual(-1);
-        })
-    })
-})
-
+  describe("When an invalid item is given", () => {
+    it("should return -1", () => {
+      expect(checkout("AA3BBB")).toEqual(-1);
+    });
+  });
+});

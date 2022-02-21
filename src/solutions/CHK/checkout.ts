@@ -2,7 +2,8 @@ export = (SKUs: string) => {
   const priceMapping: Record<string, number> = {
     A: 50,
     B: 30,
-    C: 20
+    C: 20,
+    D: 15
   };
 
   const skuInput = SKUs.split("");
@@ -15,6 +16,3 @@ export = (SKUs: string) => {
 
   return total;
 };
-
-
-
