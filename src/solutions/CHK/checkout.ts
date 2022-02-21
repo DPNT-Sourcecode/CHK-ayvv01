@@ -18,7 +18,11 @@ export = (SKUs: string) => {
         }
     },
     B: {
-        price: 30
+        price: 30,
+        offer: {
+            quantity: 2,
+            amountToDeduct: 15
+        }
     },
     C: {
         price: 20
@@ -41,13 +45,14 @@ export = (SKUs: string) => {
     basket[sku]++;
     total = total + priceMapping[sku].price;
 
-    if(priceMapping[sku] && priceMapping[sku].offer){
-        if(basket[sku] % priceMapping[sku].offer.quantity === 0) total -= priceMapping[sku].offer.amountToDeduct
+    if(priceMapping[sku].offer){
+        if(basket[sku] % priceMapping[sku].offer!.quantity === 0) total -= priceMapping[sku].offer!.amountToDeduct
     }
   }
 
   return total;
 };
+
 
 
 
