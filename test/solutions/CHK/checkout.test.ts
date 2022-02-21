@@ -43,7 +43,7 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "HHH", total: 30},
             {SKUs: "IIII", total: 140},
             {SKUs: "J", total: 60},
-            {SKUs: "K", total: 150},
+            {SKUs: "K", total: 80},
             {SKUs: "LL", total: 180},
             {SKUs: "MMM", total: 45},
             {SKUs: "NN", total: 80},
@@ -55,6 +55,10 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "T", total: 20},
             {SKUs: "UUU", total: 40},
             {SKUs: "V", total: 50},
+            {SKUs: "WWW", total: 60},
+            {SKUs: "X", total: 90},
+            {SKUs: "YY", total: 20},
+            {SKUs: "ZZZZ", total: 200},
         ])("And the customer buys $SKUs", ({SKUs, total}) => {
             it(`should total to ${total}`, () => {
                 expect(checkout(SKUs)).toEqual(total);
@@ -83,6 +87,23 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "AAAAAAAA", total: 330},
             {SKUs: "AAAABBBBBCCDD", total: 370},
             {SKUs: "AAAAABBBBBCCDDEEEE", total: 505},
+            {SKUs: "HHHHH", total: 45},
+            {SKUs: "HHHHHHHHHH", total: 80},
+            {SKUs: "HHHHHH", total: 55},
+            {SKUs: "KK", total: 150},
+            {SKUs: "KKKHHKK", total: 400},
+            {SKUs: "NNNM", total: 120},
+            {SKUs: "PPPPP", total: 200},
+            {SKUs: "PPPPPPPPPP", total: 400},
+            {SKUs: "QQQ", total: 80},
+            {SKUs: "QQQQ", total: 110},
+            {SKUs: "RRRQ", total: 150},
+            {SKUs: "RRRQQQ", total: 210},
+            {SKUs: "UUUU", total: 120},
+            {SKUs: "UUUUU", total: 160},
+            {SKUs: "VV", total: 90},
+            {SKUs: "VVV", total: 130},
+            {SKUs: "VVVVVV", total: 260},
         ])("And they buy $SKUs", ({SKUs, total}) => {
             it(`should total to ${total}`, () => {
                 expect(checkout(SKUs)).toEqual(total);
@@ -96,5 +117,6 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+
 
 
