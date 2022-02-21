@@ -72,8 +72,6 @@ export = (SKUs: string) => {
                   offer => Math.floor(basket[sku] / offer.quantity) > 0
               );
 
-              console.log(offersThatApply)
-
               if (offersThatApply.length > 0) {
                   const {amountToDeduct, quantity} = offersThatApply[offersThatApply.length - 1]
                   total -= amountToDeduct;
@@ -87,10 +85,3 @@ export = (SKUs: string) => {
 
   return total;
 };
-
-
-
-
-
-
-
