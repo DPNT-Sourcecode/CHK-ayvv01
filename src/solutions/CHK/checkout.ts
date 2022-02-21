@@ -31,7 +31,11 @@ export = (SKUs: string) => {
       price: 15
     },
     E: {
-      price: 40
+      price: 40,
+      offer: {
+        quantity: 2,
+        amountToDeduct: 40
+      }
     }
   };
   const skuInput = SKUs.split("");
@@ -55,8 +59,3 @@ export = (SKUs: string) => {
 
   return total;
 };
-
-
-
-
-

@@ -43,6 +43,9 @@ describe("Given a customer buys a list of items", () => {
         describe.each([
             {SKUs: "AAA", total: 130},
             {SKUs: "BB", total: 45},
+            {SKUs: "EE", total: 40},
+            {SKUs: "EEE", total: 80},
+            {SKUs: "EEEE", total: 80},
             {SKUs: "ABAA", total: 160},
             {SKUs: "AAABB", total: 175},
             {SKUs: "AAAA", total: 180},
@@ -50,6 +53,7 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "AAAAA", total: 230},
             {SKUs: "AAAAAA", total: 260},
             {SKUs: "AAAABBBBBCCDD", total: 370},
+            {SKUs: "AAAABBBBBCCDDEEEE", total: 450},
         ])("And they buy $SKUs", ({SKUs, total}) => {
             it(`should total to ${total}`, () => {
                 expect(checkout(SKUs)).toEqual(total);
@@ -63,9 +67,3 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
-
-
-
-
-
-
