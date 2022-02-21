@@ -1,0 +1,1 @@
+export = (_SKUs: string) => 50;
