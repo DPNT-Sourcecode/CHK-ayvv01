@@ -1,1 +1,1 @@
-export = (_param: string) => "Hello, World!";
+export = (name: string) => `Hello, ${name || "World"}!`;

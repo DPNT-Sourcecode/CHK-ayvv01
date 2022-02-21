@@ -4,7 +4,7 @@
   "description": "Warmup code to bootstrap the challenge",
   "scripts": {
     "compile": "tsc",
-    "start": "npm compile && node ./lib/send_command_to_server.js",
+    "start": "npm run compile && node ./lib/send_command_to_server.js",
     "test": "jest test/.*\\.test\\.ts",
     "coverage": "nyc --reporter=json-summary --reporter=text npm test",
     "lint": "eslint . --ext .ts"
