@@ -83,7 +83,7 @@ export = (SKUs: string) => {
           offer => Math.floor(basket[sku] / offer.quantity) > 0
         );
 
-        console.log(offersThatApply.length)
+        console.log(offersThatApply.length);
         if (offersThatApply.length > 0) {
           const offerToUse = offersThatApply[offersThatApply.length - 1];
 
@@ -97,8 +97,8 @@ export = (SKUs: string) => {
             ) {
               total -= priceMapping[offerToUse.itemToGiveFree].price;
               basket[offerToUse.itemToGiveFree]--;
-              basket[sku] -= offerToUse.quantity;
             }
+            basket[sku] -= offerToUse.quantity;
           }
         } else hasOffersLeft = false;
       }
@@ -107,6 +107,7 @@ export = (SKUs: string) => {
 
   return total;
 };
+
 
 
 
