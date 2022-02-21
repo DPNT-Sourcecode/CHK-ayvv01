@@ -53,7 +53,7 @@ describe("Given a customer buys a list of items", () => {
             {SKUs: "RR", total: 100},
             {SKUs: "SSSS", total: 120},
             {SKUs: "T", total: 20},
-            {SKUs: "UUU", total: 40},
+            {SKUs: "UUU", total: 120},
             {SKUs: "V", total: 50},
             {SKUs: "WWW", total: 60},
             {SKUs: "X", total: 90},
@@ -117,6 +117,7 @@ describe("Given a customer buys a list of items", () => {
     });
   });
 });
+
 
 
 
