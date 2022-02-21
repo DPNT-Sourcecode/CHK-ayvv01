@@ -78,6 +78,14 @@ export const priceMapping: PriceMapping = {
     },
     J: {
         price: 60
+    },
+    K: {
+        price: 80,
+        offer: [{
+            quantity: 2,
+            amountToDeduct: 10,
+        }],
+
     }
 };
 export const freeMapping: FreeMapping = {
@@ -86,3 +94,4 @@ export const freeMapping: FreeMapping = {
         itemToGiveFree: "B"
     }
 };
+
